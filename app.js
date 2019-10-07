@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 const chalk = require("chalk");
 app.use(express.static("public"));
+app.use(express.json()); // for parsing application/json
 
 const globaldata = {
   nextBirthsProjection: 6 * 1000 * 60 * 20, //387000 births per day //16122 births per hour // 270 biths per minute // 4.5 births per second
@@ -23,6 +24,8 @@ app.get("/data", function(req, res) {
 });
 
 app.post("/data", function(req, res) {
+  console.log(req.body);
+
   res.send({ data: 01 });
 });
 
