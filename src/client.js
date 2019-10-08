@@ -1,4 +1,5 @@
-import axios from "axios";
+import io from "socket.io-client";
+let socketIO = io("http://127.0.0.1:3000");
 
 var nextBirthsProjection = 0;
 var nextDeathsProjection = 0;
@@ -64,21 +65,16 @@ function start(BirthsProjection, DeathsProjection, ProjectionDate) {
   startCountingDeaths(presentDeathRatePerSecond);
 }
 
-window.onload = () => {
-  axios.get("/data").then(
-    response => {
-      console.log(response);
+socketIO.on("client_global_data", msg => {
+  console.info("client_global_data", msg);
+  nextBirthsProjection = msg.nextBirthsProjection;
+  nextDeathsProjection = msg.nextDeathsProjection;
+  nextProjectionDate = msg.nextProjectionDate;
+  worldPopulation = msg.worldPopulation;
 
-      nextBirthsProjection = response.data.nextBirthsProjection;
-      nextDeathsProjection = response.data.nextDeathsProjection;
-      nextProjectionDate = response.data.nextProjectionDate;
-      worldPopulation = response.data.worldPopulation;
+  start(nextBirthsProjection, nextDeathsProjection, nextProjectionDate);
+});
 
-      start(nextBirthsProjection, nextDeathsProjection, nextProjectionDate);
-    },
-    error => {
-      console.log(error);
-      alert("error ");
-    }
-  );
-};
+window.setInterval(() => {
+  socketIO.emit("client_current_digits", { id: socketIO.id, worldPopulation });
+}, 1000);

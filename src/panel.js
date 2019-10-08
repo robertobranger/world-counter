@@ -1,4 +1,3 @@
-import axios from "axios";
 import io from "socket.io-client";
 
 let socketIO = io("http://127.0.0.1:3000");
@@ -15,8 +14,6 @@ socketIO.on("admin_global_data", msg => {
   nextDeathsProjection.value = msg.nextDeathsProjection;
   nextProjectionDate.value = msg.nextProjectionDate;
   worldPopulation.value = msg.worldPopulation;
-
-  console.log(msg);
 });
 
 btn_save.onclick = () => {
