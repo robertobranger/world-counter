@@ -14,7 +14,13 @@ let globaldata = {
   worldPopulation: 7432536555
 };
 
-let client_data_list = [];
+var contador = require("./contador")(
+  globaldata.nextBirthsProjection,
+  globaldata.nextDeathsProjection,
+  globaldata.nextProjectionDate,
+  globaldata.worldPopulation,
+  io
+);
 
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/public/index.html");
@@ -22,10 +28,6 @@ app.get("/", function(req, res) {
 
 app.get("/admin", function(req, res) {
   res.sendFile(__dirname + "/public/admin.html");
-});
-
-app.get("/data", function(req, res) {
-  res.send(globaldata);
 });
 
 // Socket ---------------------------------------------------
@@ -59,33 +61,19 @@ io.on("connection", function(socket) {
       worldPopulation: msg.worldPopulation
     };
 
-    io.emit("client_global_data", globaldata);
+    contador = require("./contador")(
+      globaldata.nextBirthsProjection,
+      globaldata.nextDeathsProjection,
+      globaldata.nextProjectionDate,
+      globaldata.worldPopulation,
+      io
+    );
   });
 
   // =====================================================
+  // =====================================================
+  // =====================================================
   // client
-
-  // client is conected so send this.
-  io.emit("client_global_data", globaldata);
-
-  socket.on("client_current_digits", function(msg) {
-    let l = client_data_list.length;
-    let newClient = true;
-
-    for (let i = 0; i < l; i++) {
-      if (client_data_list[i].id === msg.id) {
-        client_data_list[i] = msg;
-        newClient = false;
-        break;
-      }
-    }
-
-    if (newClient) {
-      client_data_list.push(msg);
-    }
-
-    console.log(client_data_list);
-  });
 });
 
 // ===========================================================
