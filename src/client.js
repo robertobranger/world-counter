@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import serv from "../env";
 
-let socketIO = io(`https://counterworld.herokuapp.com/`);
+let socketIO = io(serv.url);
 
 let counterText = document.getElementById("counterText");
 

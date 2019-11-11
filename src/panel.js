@@ -1,6 +1,6 @@
 import io from "socket.io-client";
-
-let socketIO = io("http://127.0.0.1:3000");
+import serv from "../env";
+let socketIO = io(serv.url);
 
 let btn_save = document.getElementById("btn-save");
 

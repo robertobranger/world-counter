@@ -8,13 +8,13 @@ var io = null;
 function oneBirthHappened() {
   worldPopulation++;
 
-  io.emit("client_data", worldPopulation);
+  io.emit("client_data", `+ ${worldPopulation}`);
   //trigger
 }
 
 function oneDeathHappened() {
   worldPopulation--;
-  io.emit("client_data", worldPopulation);
+  io.emit("client_data", `- ${worldPopulation}`);
   // trigger
 }
 
