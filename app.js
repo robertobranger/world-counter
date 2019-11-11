@@ -3,7 +3,8 @@ var app = express();
 const chalk = require("chalk");
 app.use(express.static("public"));
 app.use(express.json()); // for parsing application/json
-const PORT = process.env.PORT || 3000;
+let serv = require("./env.js");
+
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 
@@ -79,6 +80,6 @@ io.on("connection", function(socket) {
 // ===========================================================
 // Bootstrap app
 //
-http.listen(PORT, function() {
-  console.log(chalk.green(`Server App listening on port ${PORT}!`));
+http.listen(serv.port, function() {
+  console.log(chalk.green(`Server App listening on port ${serv.port}!`));
 });
