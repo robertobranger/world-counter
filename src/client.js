@@ -1,7 +1,9 @@
 import io from "socket.io-client";
 
-let url = process.env.URL || "http://127.0.0.1:3000";
-let socketIO = io(url);
+const url = process.env.URL || "http://127.0.0.1";
+const port = process.env.PORT || 3000;
+
+let socketIO = io(`${url}:${port}`);
 
 let counterText = document.getElementById("counterText");
 
