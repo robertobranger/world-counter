@@ -1,7 +1,14 @@
+let url = "";
+
+if (process.env.ENV === "PRODUCTION") {
+  url = "https://counterworld.herokuapp.com/";
+} else if (process.env.ENV === "DEV") {
+  url = "http://127.0.0.1:3000";
+} else {
+  url = "https://counterworld.herokuapp.com/";
+}
+
 module.exports = {
-  url:
-    process.env.ENV === "PRODUCTION"
-      ? "https://counterworld.herokuapp.com/"
-      : "http://127.0.0.1:3000",
+  url: url,
   port: process.env.PORT || 3000
 };
