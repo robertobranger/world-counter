@@ -3,7 +3,7 @@ var app = express();
 const chalk = require("chalk");
 app.use(express.static("public"));
 app.use(express.json()); // for parsing application/json
-const PORT = process.env.PORT | 3000;
+const PORT = process.env.PORT || 3000;
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 
