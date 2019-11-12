@@ -1,4 +1,4 @@
-let pad = require("./helper.js");
+let helper = require("./helper.js");
 
 var nextBirthsProjection = 0;
 var nextDeathsProjection = 0;
@@ -11,8 +11,11 @@ function oneBirthHappened() {
   worldPopulation++;
 
   io.emit("client_data", {
-    worldPopulation: `+ ${worldPopulation}`,
-    pplInSpace: pad(pplInSPace, worldPopulation.toString().length)
+    worldPopulation: `+ ${helper.format(worldPopulation, 0)}`,
+    pplInSpace: helper.format(
+      helper.pad(pplInSPace, worldPopulation.toString().length),
+      0
+    )
   });
   //trigger
 }
@@ -20,8 +23,11 @@ function oneBirthHappened() {
 function oneDeathHappened() {
   worldPopulation--;
   io.emit("client_data", {
-    worldPopulation: `- ${worldPopulation}`,
-    pplInSpace: pad(pplInSPace, worldPopulation.toString().length)
+    worldPopulation: `- ${helper.format(worldPopulation, 0)}`,
+    pplInSpace: helper.format(
+      helper.pad(pplInSPace, worldPopulation.toString().length),
+      0
+    )
   });
   // trigger
 }

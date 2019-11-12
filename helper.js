@@ -1,8 +1,8 @@
-module.exports = function(num, size) {
+function pad(num, size) {
   var s = num + "";
   while (s.length < size) s = "0" + s;
   return s;
-};
+}
 
 function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
   try {
@@ -34,3 +34,8 @@ function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
 
 //var a = formatMoney(1236695364, 0);
 //console.log(a);
+
+module.exports = {
+  pad: pad,
+  format: formatMoney
+};
