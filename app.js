@@ -12,7 +12,8 @@ let globaldata = {
   nextBirthsProjection: 6 * 1000 * 60 * 20, //387000 births per day //16122 births per hour // 270 biths per minute // 4.5 births per second
   nextDeathsProjection: 1.9 * 1000 * 60 * 20, //162360 deaths per day // 6795 deaths per hour //113 death per minute // 1.9 deaths per second
   nextProjectionDate: Date.now() + 1000 * 60 * 20, // unix date + ms * seg * minutes
-  worldPopulation: 7432536555
+  worldPopulation: 7432536555,
+  pplInSpace: 3
 };
 
 var contador = require("./contador")(
@@ -20,7 +21,8 @@ var contador = require("./contador")(
   globaldata.nextDeathsProjection,
   globaldata.nextProjectionDate,
   globaldata.worldPopulation,
-  io
+  io,
+  globaldata.pplInSpace
 );
 
 app.get("/", function(req, res) {
@@ -59,7 +61,8 @@ io.on("connection", function(socket) {
       nextBirthsProjection: msg.nextBirthsProjection,
       nextDeathsProjection: msg.nextDeathsProjection,
       nextProjectionDate: msg.nextProjectionDate,
-      worldPopulation: msg.worldPopulation
+      worldPopulation: msg.worldPopulation,
+      pplInSpace: msg.pplInSpace
     };
 
     contador = require("./contador")(
@@ -67,7 +70,8 @@ io.on("connection", function(socket) {
       globaldata.nextDeathsProjection,
       globaldata.nextProjectionDate,
       globaldata.worldPopulation,
-      io
+      io,
+      globaldata.pplInSpace
     );
   });
 

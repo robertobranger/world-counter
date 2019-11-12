@@ -8,12 +8,14 @@ let nextBirthsProjection = document.getElementById("1");
 let nextDeathsProjection = document.getElementById("2");
 let nextProjectionDate = document.getElementById("3");
 let worldPopulation = document.getElementById("4");
+let pplInSpace = document.getElementById("5");
 
 socketIO.on("admin_global_data", msg => {
   nextBirthsProjection.value = msg.nextBirthsProjection;
   nextDeathsProjection.value = msg.nextDeathsProjection;
   nextProjectionDate.value = msg.nextProjectionDate;
   worldPopulation.value = msg.worldPopulation;
+  pplInSpace.value = msg.pplInSpace;
 });
 
 btn_save.onclick = () => {
@@ -21,7 +23,8 @@ btn_save.onclick = () => {
     nextBirthsProjection: nextBirthsProjection.value,
     nextDeathsProjection: nextDeathsProjection.value,
     nextProjectionDate: nextProjectionDate.value,
-    worldPopulation: worldPopulation.value
+    worldPopulation: worldPopulation.value,
+    pplInSpace: pplInSpace.value
   };
 
   socketIO.emit("save_admin_gloabl_data", data);
