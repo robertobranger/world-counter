@@ -56,7 +56,7 @@ io.on("connection", function(socket) {
   io.emit("admin_pplInSpace", pplInSpace);
   io.emit(
     "client_pplInSpace",
-    `${simbol} ${pad(pplInSpace, cantidadCerosPad)}`
+    `${simbol} ${format(pad(pplInSpace, cantidadCerosPad))}`
   );
 
   // =====================================================
@@ -95,7 +95,7 @@ io.on("connection", function(socket) {
 
     io.emit(
       "client_pplInSpace",
-      `${simbol} ${pad(pplInSpace, cantidadCerosPad)}`
+      `${simbol} ${format(pad(pplInSpace, cantidadCerosPad))}`
     );
   });
 
