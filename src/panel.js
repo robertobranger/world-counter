@@ -3,6 +3,7 @@ import serv from "../env";
 let socketIO = io(serv.url);
 
 let btn_save = document.getElementById("btn-save");
+let btn_save_ppinSpace = document.getElementById("btn-save-ppinSpace");
 
 let nextBirthsProjection = document.getElementById("1");
 let nextDeathsProjection = document.getElementById("2");
@@ -15,7 +16,10 @@ socketIO.on("admin_global_data", msg => {
   nextDeathsProjection.value = msg.nextDeathsProjection;
   nextProjectionDate.value = msg.nextProjectionDate;
   worldPopulation.value = msg.worldPopulation;
-  pplInSpace.value = msg.pplInSpace;
+});
+
+socketIO.on("admin_pplInSpace", msg => {
+  pplInSpace.value = msg;
 });
 
 btn_save.onclick = () => {
@@ -23,9 +27,12 @@ btn_save.onclick = () => {
     nextBirthsProjection: nextBirthsProjection.value,
     nextDeathsProjection: nextDeathsProjection.value,
     nextProjectionDate: nextProjectionDate.value,
-    worldPopulation: worldPopulation.value,
-    pplInSpace: pplInSpace.value
+    worldPopulation: worldPopulation.value
   };
 
   socketIO.emit("save_admin_gloabl_data", data);
+};
+
+btn_save_ppinSpace.onclick = () => {
+  socketIO.emit("save_admin_pplInSpace", pplInSpace.value);
 };

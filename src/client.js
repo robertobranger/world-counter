@@ -7,13 +7,9 @@ let counterText = document.getElementById("counterText");
 let pplInSpace = document.getElementById("pplInSpace");
 
 socketIO.on("client_data", msg => {
-  counterText.innerText = msg.worldPopulation;
-  pplInSpace.innerText = msg.pplInSpace;
+  counterText.innerText = msg;
 });
 
-/*socketIO.on("client_data_inSpace", msg => {
-});*/
-
-/*window.setInterval(() => {
-  socketIO.emit("client_current_digits", { id: socketIO.id, worldPopulation });
-}, 1000);*/
+socketIO.on("client_pplInSpace", msg => {
+  pplInSpace.innerText = msg;
+});

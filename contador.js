@@ -10,25 +10,13 @@ var io = null;
 function oneBirthHappened() {
   worldPopulation++;
 
-  io.emit("client_data", {
-    worldPopulation: `+ ${helper.format(worldPopulation, 0)}`,
-    pplInSpace: helper.format(
-      helper.pad(pplInSPace, worldPopulation.toString().length),
-      0
-    )
-  });
+  io.emit("client_data", `+ ${helper.format(worldPopulation, 0)}`);
   //trigger
 }
 
 function oneDeathHappened() {
   worldPopulation--;
-  io.emit("client_data", {
-    worldPopulation: `- ${helper.format(worldPopulation, 0)}`,
-    pplInSpace: helper.format(
-      helper.pad(pplInSPace, worldPopulation.toString().length),
-      0
-    )
-  });
+  io.emit("client_data", `- ${helper.format(worldPopulation, 0)}`);
   // trigger
 }
 
@@ -73,12 +61,10 @@ function start(
   DeathsProjection,
   ProjectionDate,
   worldPopulationIn,
-  ioIn,
-  ppInSPaceIN
+  ioIn
 ) {
   io = ioIn;
   worldPopulation = worldPopulationIn;
-  pplInSPace = ppInSPaceIN;
 
   var timeRemainingToNextProjection = ProjectionDate - Date.now();
   var presentBirthRatePerSecond =
