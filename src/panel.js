@@ -1,5 +1,8 @@
 import io from "socket.io-client";
 import serv from "../env";
+import flatpickr from "flatpickr";
+import moment from "moment";
+
 let socketIO = io(serv.url);
 
 let btn_save = document.getElementById("btn-save");
@@ -14,7 +17,9 @@ let pplInSpace = document.getElementById("5");
 socketIO.on("admin_global_data", msg => {
   nextBirthsProjection.value = msg.nextBirthsProjection;
   nextDeathsProjection.value = msg.nextDeathsProjection;
-  nextProjectionDate.value = msg.nextProjectionDate;
+  nextProjectionDate.value = moment(msg.nextProjectionDate, "x").format(
+    "YYYY-MM-DD"
+  );
   worldPopulation.value = msg.worldPopulation;
 });
 
@@ -26,7 +31,9 @@ btn_save.onclick = () => {
   const data = {
     nextBirthsProjection: nextBirthsProjection.value,
     nextDeathsProjection: nextDeathsProjection.value,
-    nextProjectionDate: nextProjectionDate.value,
+    nextProjectionDate: moment(nextProjectionDate.value, "YYYY-MM-DD").format(
+      "x"
+    ),
     worldPopulation: worldPopulation.value
   };
 
@@ -36,3 +43,9 @@ btn_save.onclick = () => {
 btn_save_ppinSpace.onclick = () => {
   socketIO.emit("save_admin_pplInSpace", pplInSpace.value);
 };
+
+flatpickr(nextProjectionDate, {
+  minDate: "today",
+  enableTime: false,
+  dateFormat: "Y-m-d"
+});

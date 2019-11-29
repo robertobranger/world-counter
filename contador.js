@@ -10,13 +10,19 @@ var io = null;
 function oneBirthHappened() {
   worldPopulation++;
 
-  io.emit("client_data", `+ ${helper.format(worldPopulation, 0)}`);
+  io.emit(
+    "client_data",
+    `+ ${helper.format(helper.pad(worldPopulation, 12), 0)}`
+  );
   //trigger
 }
 
 function oneDeathHappened() {
   worldPopulation--;
-  io.emit("client_data", `- ${helper.format(worldPopulation, 0)}`);
+  io.emit(
+    "client_data",
+    `- ${helper.format(helper.pad(worldPopulation, 12), 0)}`
+  );
   // trigger
 }
 

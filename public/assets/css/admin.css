@@ -4,5 +4,7 @@ body {
 }
 
 body {
-  background-image: url("https://www.topofandroid.com/wp-content/uploads/2015/05/Android-L-Material-Design-Wallpapers-3.jpg");
+  background-image: url("../img/earth_horizon-wide.jpg");
+  background-position: center;
+  background-size: cover;
 }

@@ -21,7 +21,7 @@ let globaldata = {
 let pplInSpace = 3;
 let simbol = "+";
 let prevpplInSpace = 0;
-var cantidadCerosPad = 10;
+var cantidadCerosPad = 12;
 
 var contador = require("./contador")(
   globaldata.nextBirthsProjection,
