@@ -14,7 +14,7 @@ let worldPopulation = document.getElementById("4");
 let pplInSpace = document.getElementById("5");
 
 socketIO.on("admin_global_data", msg => {
-  presentBirthRatePerSecond = msg.presentDeathRatePerSecond;
+  presentBirthRatePerSecond.value = msg.presentDeathRatePerSecond;
   presentDeathRatePerSecond.value = msg.presentDeathRatePerSecond;
   worldPopulation.value = msg.worldPopulation;
 });

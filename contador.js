@@ -26,15 +26,14 @@ function oneDeathHappened() {
 }
 
 function timeToNextBirth(birthRate) {
-  return 1000 * (1 / RandomVariable(birthRate));
+  return parseInt(1000 * (1 / RandomVariable(birthRate)));
 }
 
 function timeToNextDeath(deathRate) {
-  return 1000 * (1 / RandomVariable(deathRate));
+  return parseInt(1000 * (1 / RandomVariable(deathRate)));
 }
 
 function RandomVariable(rate) {
-
   return (0.7 + 0.6 * Math.random()) * rate;
 }
 
