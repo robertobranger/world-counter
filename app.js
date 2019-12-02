@@ -12,9 +12,8 @@ var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 
 let globaldata = {
-  nextBirthsProjection: 6 * 1000 * 60 * 20, //387000 births per day //16122 births per hour // 270 biths per minute // 4.5 births per second
-  nextDeathsProjection: 1.9 * 1000 * 60 * 20, //162360 deaths per day // 6795 deaths per hour //113 death per minute // 1.9 deaths per second
-  nextProjectionDate: Date.now() + 1000 * 60 * 20, // unix date + ms * seg * minutes
+  presentBirthRatePerSecond: 4.5, // 4.5 births per second
+  presentDeathRatePerSecond: 1.9, // 1.9 deaths per second
   worldPopulation: 7432536555
 };
 
@@ -24,9 +23,8 @@ let prevpplInSpace = 0;
 var cantidadCerosPad = 12;
 
 var contador = require("./contador")(
-  globaldata.nextBirthsProjection,
-  globaldata.nextDeathsProjection,
-  globaldata.nextProjectionDate,
+  globaldata.presentBirthRatePerSecond,
+  globaldata.presentDeathRatePerSecond,
   globaldata.worldPopulation,
   io
 );
@@ -70,16 +68,15 @@ io.on("connection", function(socket) {
     console.log("SAVE NEW DATA:", msg);
 
     globaldata = {
-      nextBirthsProjection: msg.nextBirthsProjection,
-      nextDeathsProjection: msg.nextDeathsProjection,
-      nextProjectionDate: msg.nextProjectionDate,
+      presentBirthRatePerSecond: msg.presentBirthRatePerSecond,
+      presentDeathRatePerSecond: msg.presentDeathRatePerSecond,
+
       worldPopulation: msg.worldPopulation
     };
 
     contador = require("./contador")(
-      globaldata.nextBirthsProjection,
-      globaldata.nextDeathsProjection,
-      globaldata.nextProjectionDate,
+      globaldata.presentBirthRatePerSecond,
+      globaldata.presentDeathRatePerSecond,
       globaldata.worldPopulation,
       io
     );

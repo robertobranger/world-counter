@@ -1,8 +1,7 @@
 let helper = require("./helper.js");
 
-var nextBirthsProjection = 0;
-var nextDeathsProjection = 0;
-var nextProjectionDate = 0;
+var presentBirthRatePerSecond = 0;
+var presentDeathRatePerSecond = 0;
 var worldPopulation = 0;
 var pplInSPace = 0;
 var io = null;
@@ -27,24 +26,16 @@ function oneDeathHappened() {
 }
 
 function timeToNextBirth(birthRate) {
-  return (1000 * 5) / poissonRandomVariable(5 * birthRate);
+  return 1000 * (1 / RandomVariable(birthRate));
 }
 
 function timeToNextDeath(deathRate) {
-  return (1000 * 10) / poissonRandomVariable(10 * deathRate);
+  return 1000 * (1 / RandomVariable(deathRate));
 }
 
-function poissonRandomVariable(mean) {
-  var limit = Math.exp(-mean);
-  var p = 1.0;
-  var counter = 0;
+function RandomVariable(rate) {
 
-  do {
-    counter++;
-    p *= Math.random();
-  } while (p > limit);
-
-  return counter - 1;
+  return (0.7 + 0.6 * Math.random()) * rate;
 }
 
 function startCountingBirths(birthRate1) {
@@ -63,20 +54,14 @@ function startCountingDeaths(deathRate1) {
 }
 
 function start(
-  BirthsProjection,
-  DeathsProjection,
-  ProjectionDate,
+  presentBirthRatePerSecond,
+  presentDeathRatePerSecond,
   worldPopulationIn,
   ioIn
 ) {
   io = ioIn;
   worldPopulation = worldPopulationIn;
 
-  var timeRemainingToNextProjection = ProjectionDate - Date.now();
-  var presentBirthRatePerSecond =
-    BirthsProjection / timeRemainingToNextProjection;
-  var presentDeathRatePerSecond =
-    DeathsProjection / timeRemainingToNextProjection;
   startCountingBirths(presentBirthRatePerSecond);
   startCountingDeaths(presentDeathRatePerSecond);
 }
