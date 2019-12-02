@@ -3,7 +3,7 @@ import serv from "../env";
 import flatpickr from "flatpickr";
 import moment from "moment";
 
-let socketIO = io(window.location.href);
+let socketIO = io(window.location.href.replace("admin", ""));
 
 let btn_save = document.getElementById("btn-save");
 let btn_save_ppinSpace = document.getElementById("btn-save-ppinSpace");
@@ -36,9 +36,3 @@ btn_save.onclick = () => {
 btn_save_ppinSpace.onclick = () => {
   socketIO.emit("save_admin_pplInSpace", pplInSpace.value);
 };
-
-flatpickr(nextProjectionDate, {
-  minDate: "today",
-  enableTime: false,
-  dateFormat: "Y-m-d"
-});
