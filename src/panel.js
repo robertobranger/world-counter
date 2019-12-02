@@ -3,7 +3,7 @@ import serv from "../env";
 import flatpickr from "flatpickr";
 import moment from "moment";
 
-let socketIO = io(serv.url);
+let socketIO = io(window.location.href);
 
 let btn_save = document.getElementById("btn-save");
 let btn_save_ppinSpace = document.getElementById("btn-save-ppinSpace");

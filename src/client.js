@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import serv from "../env";
 
-let socketIO = io(serv.url);
+let socketIO = io(window.location.href);
 
 let counterText = document.getElementById("counterText");
 let pplInSpace = document.getElementById("pplInSpace");
