@@ -14,10 +14,10 @@ var io = require("socket.io")(http);
 let globaldata = {
   presentBirthRatePerSecond: 4.5, // 4.5 births per second
   presentDeathRatePerSecond: 1.9, // 1.9 deaths per second
-  worldPopulation: 7432536555
+  worldPopulation: 7747894020
 };
 
-let pplInSpace = 3;
+let pplInSpace = 6;
 let simbol = "+";
 let prevpplInSpace = 0;
 var cantidadCerosPad = 12;
