@@ -14,7 +14,7 @@ var io = require("socket.io")(http);
 let globaldata = {
   presentBirthRatePerSecond: 4.5, // 4.5 births per second
   presentDeathRatePerSecond: 1.9, // 1.9 deaths per second
-  worldPopulation: 7747894020
+  worldPopulation: 7748186415
 };
 
 let pplInSpace = 6;
