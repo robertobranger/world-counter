@@ -5,9 +5,8 @@ var presentDeathRatePerSecond = 0;
 var worldPopulation = 0;
 var pplInSPace = 0;
 var io = null;
-var DeathcounterState = 'count';
-var BirthCounterState = 'count';
-
+var DeathcounterState = "count";
+var BirthCounterState = "count";
 
 function oneBirthHappened() {
   worldPopulation++;
@@ -55,42 +54,40 @@ function startCountingDeaths(deathRate1) {
   }, timeoutTime2);
 }*/
 
-
-function startCounting(birthRate1,deathRate1,DeathcounterState1,BirthCounterState1) {
-
-  var D = DeathcounterState1
-  var B = BirthCounterState1
+async function startCounting(
+  birthRate1,
+  deathRate1,
+  DeathcounterState1,
+  BirthCounterState1
+) {
+  var D = DeathcounterState1;
+  var B = BirthCounterState1;
   var X = true;
-  while (X) {
-    
-    if (D == 'count') {
-      console.log('Contando muerte');
+
+  setInterval(function() {
+    if (D == "count") {
+      console.log("Contando muerte");
       var timeoutTime2 = timeToNextDeath(deathRate1);
       oneDeathHappened();
-      D = 'wait'
-      
+      D = "wait";
+
       setTimeout(function() {
-        D = 'count';
+        D = "count";
         console.log(D);
       }, 1000);
-    
     }
-  
-    if (B == 'count') {
-      
+
+    if (B == "count") {
       var timeoutTime1 = timeToNextBirth(birthRate1);
-      
+
       oneBirthHappened();
-      B = 'wait'
-      
+      B = "wait";
+
       setTimeout(() => {
-        B = 'count'
+        B = "count";
       }, timeoutTime1);
-    
     }
-
-  }
-
+  }, 1);
 }
 
 function start(
@@ -102,7 +99,12 @@ function start(
   io = ioIn;
   worldPopulation = worldPopulationIn;
 
-  startCounting(presentBirthRatePerSecond,presentDeathRatePerSecond,DeathcounterState,BirthCounterState)
+  startCounting(
+    presentBirthRatePerSecond,
+    presentDeathRatePerSecond,
+    DeathcounterState,
+    BirthCounterState
+  );
   /*
   startCountingBirths(presentBirthRatePerSecond);
   startCountingDeaths(presentDeathRatePerSecond);

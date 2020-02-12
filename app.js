@@ -40,14 +40,6 @@ app.get("/admin", function(req, res) {
 // Socket ---------------------------------------------------
 
 io.on("connection", function(socket) {
-  
-  contador = require("./contador")(
-    globaldata.presentBirthRatePerSecond,
-    globaldata.presentDeathRatePerSecond,
-    globaldata.worldPopulation,
-    io
-  );
-  
   // =====================================================
   // general
 
@@ -81,8 +73,6 @@ io.on("connection", function(socket) {
 
       worldPopulation: msg.worldPopulation
     };
-
-
   });
 
   socket.on("save_admin_pplInSpace", function(msg) {
