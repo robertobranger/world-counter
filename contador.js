@@ -87,7 +87,8 @@ function start(
   presentDeathRatePerSecond = presentDeathRatePerSecondIn;
 
 
-  if (primera_corrida = true) {
+  if (primera_corrida == true) {
+    console.log('arrancando a contar')
     startCounting(
       DeathcounterState,
       BirthCounterState
