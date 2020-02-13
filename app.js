@@ -10,23 +10,24 @@ const format = help.format;
 
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
+var contador = require("./contador").default
 
 let globaldata = {
   presentBirthRatePerSecond: 4.5, // 4.5 births per second
-  presentDeathRatePerSecond: 1.9, // 1.9 deaths per second
-  worldPopulation: 7748186415
+  presentDeathRatePerSecond: 2, // 1.9 deaths per second
+  worldPopulation: 7763981700
 };
 
-let pplInSpace = 6;
+let pplInSpace = 3;
 let simbol = "+";
 let prevpplInSpace = 0;
 var cantidadCerosPad = 12;
 
-var contador = require("./contador")(
+contador (
   globaldata.presentBirthRatePerSecond,
   globaldata.presentDeathRatePerSecond,
   globaldata.worldPopulation,
-  io
+  io, true
 );
 
 app.get("/", function(req, res) {
@@ -73,6 +74,14 @@ io.on("connection", function(socket) {
 
       worldPopulation: msg.worldPopulation
     };
+
+    contador (
+      globaldata.presentBirthRatePerSecond,
+      globaldata.presentDeathRatePerSecond,
+      globaldata.worldPopulation,
+      io, false
+    );
+    
   });
 
   socket.on("save_admin_pplInSpace", function(msg) {

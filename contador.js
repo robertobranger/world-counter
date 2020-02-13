@@ -39,24 +39,9 @@ function RandomVariable(rate) {
   return (0.7 + 0.6 * Math.random()) * rate;
 }
 
-/*function startCountingBirths(birthRate1) {
-  var timeoutTime1 = timeToNextBirth(birthRate1);
-  setTimeout(function() {
-    oneBirthHappened();
-    startCountingBirths(birthRate1);
-  }, timeoutTime1);
-}
-function startCountingDeaths(deathRate1) {
-  var timeoutTime2 = timeToNextDeath(deathRate1);
-  setTimeout(function() {
-    oneDeathHappened();
-    startCountingDeaths(deathRate1);
-  }, timeoutTime2);
-}*/
 
 async function startCounting(
-  birthRate1,
-  deathRate1,
+  
   DeathcounterState1,
   BirthCounterState1
 ) {
@@ -66,19 +51,19 @@ async function startCounting(
 
   setInterval(function() {
     if (D == "count") {
-      console.log("Contando muerte");
-      var timeoutTime2 = timeToNextDeath(deathRate1);
+
+      var timeoutTime2 = timeToNextDeath(presentDeathRatePerSecond);
       oneDeathHappened();
       D = "wait";
 
       setTimeout(function() {
         D = "count";
-        console.log(D);
-      }, 1000);
+
+      }, timeoutTime2);
     }
 
     if (B == "count") {
-      var timeoutTime1 = timeToNextBirth(birthRate1);
+      var timeoutTime1 = timeToNextBirth(presentBirthRatePerSecond);
 
       oneBirthHappened();
       B = "wait";
@@ -91,24 +76,23 @@ async function startCounting(
 }
 
 function start(
-  presentBirthRatePerSecond,
-  presentDeathRatePerSecond,
+  presentBirthRatePerSecondIn,
+  presentDeathRatePerSecondIn,
   worldPopulationIn,
-  ioIn
+  ioIn, primera_corrida
 ) {
   io = ioIn;
   worldPopulation = worldPopulationIn;
+  presentBirthRatePerSecond = presentBirthRatePerSecondIn;
+  presentDeathRatePerSecond = presentDeathRatePerSecondIn;
 
-  startCounting(
-    presentBirthRatePerSecond,
-    presentDeathRatePerSecond,
-    DeathcounterState,
-    BirthCounterState
-  );
-  /*
-  startCountingBirths(presentBirthRatePerSecond);
-  startCountingDeaths(presentDeathRatePerSecond);
-  */
+
+  if (primera_corrida = true) {
+    startCounting(
+      DeathcounterState,
+      BirthCounterState
+    );
+  }
 }
 
-exports = module.exports = start;
+exports.default = start;
